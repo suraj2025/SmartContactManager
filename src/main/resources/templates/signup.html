@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base :: layout(~{::section}, SignUp)">
+<body>
+  <section>
+    <div class="container mt-5">
+      <div class="row align-items-center">
+        
+        <!-- Lottie Animation (hidden on mobile) -->
+        <div class="col-md-6 text-center d-none d-md-block mb-4">
+          <div id="lottie-container" style="width: 100%; max-width: 400px; margin: auto;"></div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="col-md-6 col-12 mb-4">
+          <div class="card shadow p-4">
+            <h2 class="mb-4 text-center">Register User</h2>
+            <form action="/saveUser" method="post">
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="about" class="form-label">About</label>
+                <textarea class="form-control" id="about" name="about" rows="4" placeholder="Type something..."></textarea>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Register</button>
+              </div>
+              
+              <p class="text-center mt-3">
+                Already have an account? <a th:href="@{/login}">Log in</a>
+              </p>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+<script>
+console.log("running");
+lottie.loadAnimation({
+      container: document.getElementById('lottie-container'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: '/lottie/register.json' // Make sure this path is correct in your static folder
+    });</script>
+
+</body>
+</html>

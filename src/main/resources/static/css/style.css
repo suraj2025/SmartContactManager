@@ -1,0 +1,177 @@
+.bg-my-primary {
+	background: #009688 !important;
+}
+
+.banner {
+	width: 100%;
+	height: 93vh;
+	background: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .7)),
+		url(../image/scm.jpg);
+	background-size: cover;
+	color: white;
+}
+
+.sidebar {
+	width: 220px;
+	transition: all 0.3s;
+	z-index: 1050;
+}
+
+.sidebar.collapsed {
+	margin-left: -220px;
+}
+
+.content {
+	transition: all 0.3s;
+}
+
+.content.expanded {
+	margin-left: 220px;
+}
+
+@media ( max-width : 991.98px) {
+	.sidebar {
+		position: fixed;
+		left: 0;
+		top: 56px;
+		height: calc(100% - 56px);
+		background-color: #343a40;
+		width: 100%;
+	}
+	.mytext {
+		text-align: center;
+	}
+	.sidebar.collapsed {
+		transform: translateX(-100%);
+	}
+	.content.expanded {
+		margin-left: 0;
+	}
+}
+
+.input-group-text {
+	min-width: 45px;
+	justify-content: center;
+	background-color: #f1f1f1;
+}
+
+.form-control, .input-group-text {
+	border-radius: 0.375rem;
+}
+
+textarea.form-control {
+	resize: none;
+}
+
+.profile-img {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 4px solid #eee;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card {
+	margin-top: 50px;
+}
+
+.info-row {
+	display: flex;
+	justify-content: space-between;
+	padding: 12px 25px;
+	border-bottom: 1px solid #dee2e6;
+}
+
+.info-row:last-child {
+	border-bottom: none;
+}
+
+.info-label {
+	font-weight: 500;
+	color: #555;
+}
+
+.info-value {
+	font-weight: 600;
+	color: #222;
+}
+
+.welcome-card {
+	
+	max-width: 100vw;
+	border-radius: 20px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.contact-img {
+	height: 150px;
+	width: 150px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 3px solid #dee2e6;
+}
+
+.start-btn {
+	background-color: #0d6efd;
+	color: #fff;
+	border: none;
+	padding: 10px 25px;
+	border-radius: 8px;
+	font-weight: 500;
+	transition: 0.3s ease;
+}
+
+.start-btn:hover {
+	background-color: #084298;
+}
+.contact-card {
+			display: block;
+		}
+		
+		.blur-background {
+		filter: blur(5px);
+		transition: filter 0.3s ease-in-out;
+		pointer-events: none; /* Prevent interaction with blurred content */
+	}
+	
+.toast-message {
+  position: fixed;
+  right: 20px;
+  bottom: -100px;
+  padding: 12px 20px;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+  z-index: 9999;
+}
+
+.bg-success {
+  background-color: #28a745;
+}
+
+.bg-danger {
+  background-color: #dc3545;
+}
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+  animation: progressBar 3s linear forwards;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+@keyframes progressBar {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+

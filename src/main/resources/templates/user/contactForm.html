@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base :: layout(~{::section},Dashboard)">
+
+<head>
+
+<style>
+
+</style>
+</head>
+
+<body>
+	<section>
+
+
+		<div class="card shadow-sm col-md-10 offset-md-1">
+
+			<div class="card-body mt-3">
+				<h1 class="text-center mb-4">
+					<i class="fas fa-user-plus"></i> Add Contact
+				</h1>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="form-container ">
+							<form th:action="@{/user/process-contact}" method="post"
+								enctype="multipart/form-data">
+								<div class="input-group mb-3 invisible">
+
+									<input th:value="${contact.cid}" type="text"
+										class="form-control" name="cid">
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-plus my-1"></i></span>
+									</div>
+									<input th:value="${contact.name}" type="text"
+										class="form-control" id="name" name="name"
+										placeholder="First Name" required>
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-user my-1"></i></span>
+									</div>
+									<input th:value="${contact.secondName}" type="text"
+										class="form-control" id="secondName" name="secondName"
+										placeholder="Second Name">
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-envelope my-1"></i></span>
+									</div>
+									<input th:value="${contact.email}" type="email"
+										class="form-control" id="email" name="email"
+										placeholder="Email" required>
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-phone my-1"></i></span>
+									</div>
+									<input th:value="${contact.phone}" type="number"
+										class="form-control" id="phone" name="phone"
+										placeholder="Phone">
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-briefcase my-1"></i></span>
+									</div>
+									<input th:value="${contact.work}" type="text"
+										class="form-control" id="work" name="work" placeholder="Work">
+								</div>
+
+								<div class="input-group mb-3">
+
+									<textarea th:if="${contact.desc!=null}" class=""
+										id="desc" name="desc" rows="10" cols="100" th:text="${contact.desc}"></textarea>
+									<textarea th:unless="${contact.desc!=null}"
+										class="form-control" id="desc" name="desc" rows="10"
+										placeholder="Description"></textarea>
+
+								</div>
+
+								<div class="input-group mb-4">
+
+									<input type="file" class="form-control" id="image"
+										name="profileImg">
+								</div>
+
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary px-4">
+
+
+										<!-- Show 'Update/Save' icon if contact.cid exists -->
+										<i class="fas fa-save my-1" th:if="${contact.cid}"></i>
+
+										<!-- Show 'Add' icon if contact.cid is null -->
+										<i class="fas fa-plus my-1" th:unless="${contact.cid}"></i>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Place the first <script> tag in your HTML's <head> -->
+	
+
+	<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+	<script>
+	
+</script>
+	
+</body>
+</html>

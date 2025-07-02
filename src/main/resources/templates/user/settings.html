@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base :: layout(~{::section},Settings)">
+
+<head>
+
+<style>
+</style>
+</head>
+
+<body>
+	<section>
+         
+		<div class="card shadow-sm col-md-10 offset-md-1">
+			<div class="card-body mt-3">
+		
+				<h1 class="text-center mb-4">Settings</h1>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="form-container ">
+							<form th:action="@{/user/changePassword}" method="post">
+								<div class="input-group mb-3">
+									<span class="input-group-text"> <i class="fas fa-lock"></i>
+									</span> <input type="password" class="form-control" name="oldPassword"
+										placeholder="Enter your Old Password">
+								</div>
+
+								<div class="input-group mb-3">
+									<span class="input-group-text"> <i class="fas fa-key"></i>
+									</span> <input type="password" class="form-control" name="newPassword"
+										placeholder="Enter your New Password">
+								</div>
+
+
+
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary px-4">
+
+
+										Change Password</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- Place the first <script> tag in your HTML's <head> -->
+
+
+	<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+	<script>
+	
+</script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base :: layout(~{::section}, 'Contacts')">
+
+<head>
+<title>Contacts</title>
+<style>
+</style>
+</head>
+
+<body>
+	<section class="container mt-4">
+
+		<h2 class="text-center mb-4">Your Contacts</h2>
+
+		<div class="mb-3 position-relative">
+			<input type="text" class="form-control" id="contactSearch"
+				placeholder="Search contacts by name..." autocomplete="off">
+			<div id="searchResults" class="list-group position-absolute w-100"
+				style="z-index: 9999;"></div>
+		</div>
+
+		<div class="row" id="contactList">
+			<!-- Loop through each contact -->
+			<div class="col-12 mb-2 contact-card" th:each="contact : ${contacts}">
+				<div class="card shadow-sm h-100">
+					<div class="card-body">
+						<div class="row align-items-center text-center">
+
+							<!-- Image -->
+							<div class="col-md-1 mb-2 mb-md-0">
+								<img th:src="@{'/image/' + ${contact.image}}"
+									class="rounded-circle" alt="Profile Image"
+									style="height: 50px; width: 50px; object-fit: cover;">
+							</div>
+
+							<!-- Name -->
+							<div class="col-md-2 contact-name"
+								th:text="${contact.name} + ' ' + ${contact.secondName}">Name</div>
+
+							<!-- Email -->
+							<div class="col-md-3 text-primary" style="white-space: nowrap;"
+								th:text="${contact.email}">Email</div>
+
+							<!-- Phone -->
+							<div class="col-md-2" th:text="${contact.phone}">Phone</div>
+
+							<!-- Work -->
+							<div class="col-md-2" th:text="${contact.work}">Work</div>
+
+							<!-- Actions -->
+							<!-- Actions -->
+							<div class="col-md-2">
+								<button class="btn btn-sm btn-outline-info me-1" title="View"
+									data-bs-toggle="modal" data-bs-target="#viewModal"
+									th:attr="data-name=${contact.name + ' ' + contact.secondName}, 
+		         data-email=${contact.email},
+		         data-phone=${contact.phone},
+		         data-work=${contact.work},
+		         data-desc=${contact.desc},
+		         data-img='/image/' + ${contact.image}">
+									<i class="fas fa-eye"></i>
+								</button>
+								<a th:href="@{'/user/update-contact/'+${contact.cid}}"
+									class="btn btn-sm btn-outline-primary me-1" title="Edit"> <i
+									class="fas fa-pen"></i>
+								</a> <a th:href="@{'/user/delete-contact/'+${contact.cid}}"
+									class="btn btn-sm btn-outline-danger" title="Delete"> <i
+									class="fas fa-trash"></i>
+								</a>
+							</div>
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End loop -->
+		</div>
+
+		<!-- View Contact Modal -->
+		<div class="modal fade" id="viewModal" tabindex="-1"
+			aria-labelledby="viewModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered"
+				style="max-width: 600px; margin: auto;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="viewModalLabel">Contact Details</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-3 text-center">
+								<img id="modalImage" class="rounded-circle img-fluid"
+									style="height: 100px; width: 100px;" alt="Profile">
+							</div>
+							<div class="col-md-9">
+								<h4 id="modalName">Name</h4>
+								<p>
+									<strong>Email:</strong> <span id="modalEmail"></span>
+								</p>
+								<p>
+									<strong>Phone:</strong> <span id="modalPhone"></span>
+								</p>
+								<p>
+									<strong>Work:</strong> <span id="modalWork"></span>
+								</p>
+								<p>
+									<strong>Description:</strong> <span id="modalDesc"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Pagination -->
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li th:classappend="${currentPage == 0} ? 'invisible'"
+					class="page-item"><a class="page-link"
+					th:href="@{'/user/view-contacts/' + ${currentPage - 1}}">Previous</a>
+				</li>
+
+				<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+					th:classappend="${i == currentPage} ? 'active'" class="page-item">
+					<a class="page-link" th:text="${i + 1}"
+					th:href="@{'/user/view-contacts/' + ${i}}"></a>
+				</li>
+
+				<li th:classappend="${currentPage + 1 == totalPages} ? 'invisible'"
+					class="page-item"><a class="page-link"
+					th:href="@{'/user/view-contacts/' + ${currentPage + 1}}">Next</a></li>
+			</ul>
+		</nav>
+
+	</section>
+
+
+	<!-- JavaScript for live filtering -->
+	<script>
+		
+	</script>
+
+</body>
+</html>
