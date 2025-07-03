@@ -23,7 +23,7 @@
 							style="display: none;"
 							onchange="document.getElementById('imageUploadForm').submit()" />
 						<label for="imageInput" style="cursor: pointer;"> <img
-							th:src="@{'/image/' + ${user.imageUrl}}" alt="Profile Image"
+							th:src="${user.imageUrl}" alt="Profile Image"
 							class="profile-img mb-3"
 							style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 2px solid #ddd;" />
 						</label>

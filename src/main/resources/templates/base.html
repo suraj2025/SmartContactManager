@@ -38,6 +38,8 @@
 		</div>
 	</nav>
 	<div th:replace="${content}" ></div>
+	<input type="hidden" id="toastContent" th:value="${message != null ? message.msg : ''}" />
+<input type="hidden" id="toastType" th:value="${message != null ? message.type : ''}" />
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>

@@ -15,7 +15,7 @@ import com.smart.entities.User;
 import com.smart.repo.ContactRepository;
 import com.smart.repo.UserRepository;
 
-@Controller
+@Controller("/")
 public class HomeController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;

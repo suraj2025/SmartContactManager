@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="user/base :: layout(~{::section}, 'Contacts')">
+th:replace="~{user/base :: layout(~{::section}, 'Contacts')}">
 
 <head>
 <title>Contacts</title>
@@ -29,7 +29,7 @@
 
 							<!-- Image -->
 							<div class="col-md-1 mb-2 mb-md-0">
-								<img th:src="@{'/image/' + ${contact.image}}"
+								<img th:src="${contact.image}"
 									class="rounded-circle" alt="Profile Image"
 									style="height: 50px; width: 50px; object-fit: cover;">
 							</div>
@@ -58,7 +58,7 @@
 		         data-phone=${contact.phone},
 		         data-work=${contact.work},
 		         data-desc=${contact.desc},
-		         data-img='/image/' + ${contact.image}">
+		         data-img=${contact.image}">
 									<i class="fas fa-eye"></i>
 								</button>
 								<a th:href="@{'/user/update-contact/'+${contact.cid}}"

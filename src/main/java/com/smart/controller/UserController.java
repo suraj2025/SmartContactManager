@@ -8,6 +8,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.smart.Message;
 import com.smart.entities.Contact;
 import com.smart.entities.User;
@@ -46,6 +49,8 @@ public class UserController {
 	ContactRepository contactRepo;
 	@Autowired
 	BCryptPasswordEncoder encoder;
+	@Autowired
+	private Cloudinary cloudinary;
 
 	@ModelAttribute
 	public void commonData(Model m, Principal username) {
@@ -68,27 +73,19 @@ public class UserController {
 	@PostMapping("/process-contact")
 	public String saveContact(@ModelAttribute Contact contact, @RequestParam("profileImg") MultipartFile file,
 			Principal username,RedirectAttributes redirectAttributes) {
-		System.out.println(contact);
+		
 
 		try {
 
 			if (!file.isEmpty()) {
-				System.out.println("File is there");
-				String originalFilename = file.getOriginalFilename();
-				String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-				String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-				String filename = timestamp + extension;
-
-				File saveDirectory = new ClassPathResource("static/image").getFile();
-				Path path = Path.of(saveDirectory.getAbsolutePath(), filename);
-
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				contact.setImage(filename);
+			    Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+			    String imageUrl = uploadResult.get("secure_url").toString();
+			    contact.setImage(imageUrl);  // Store full URL instead of just filename
 			} else {
-				// Fallback if ID is invalid
-				System.out.println("file is not there");
-				contact.setImage("profile.png");
+				contact.setImage("https://res.cloudinary.com/deyfwg9o9/image/upload/v1751445610/kpwf20nl6mlrfzkgaap9.jpg");
+
 			}
+
 
 			User user = userRepo.findByEmail(username.getName());
 
@@ -130,10 +127,11 @@ public class UserController {
 	
 	
 	@GetMapping("/view-contacts/{page}")
-	public String viewContacts(@PathVariable("page") int page,
+	public String viewContacts(@PathVariable("page") String page1,
 	                           Model m,
 	                           Principal principal
 	                           ) {
+		int page=Integer.parseInt(page1);
 	    
 	    // Set default page size (you can change this)
 	    int pageSize = 5;
@@ -184,29 +182,22 @@ public class UserController {
 	}
 	
 	@PostMapping("/update-profile-pic")
-	public String upadteProfileImage(@RequestParam("profileImage") MultipartFile file,Principal p,Model m) {
+	public String upadteProfileImage(@RequestParam("profileImage") MultipartFile file,Principal p,RedirectAttributes redirectAttributes) {
 		User user = userRepo.findByEmail(p.getName());
 		System.out.println(file.getOriginalFilename());
 		try {
 			
 			if (!file.isEmpty()) {
-				String originalFilename = file.getOriginalFilename();
-				String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-				String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-				String filename = timestamp + extension;
-				
-				File saveDirectory = new ClassPathResource("static/image").getFile();
-				Path path = Path.of(saveDirectory.getAbsolutePath(), filename);
-				
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				
-				user.setImageUrl(filename);
-				userRepo.save(user);
-				 m.addAttribute("message",new Message("Profile Image updated successfully","success"));
-			} 
+			    Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+			    String imageUrl = uploadResult.get("secure_url").toString();
+			    user.setImageUrl(imageUrl);  // Save full URL
+			    userRepo.save(user);
+			    redirectAttributes.addFlashAttribute("message", new Message("Profile Image updated successfully", "success"));
+			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
-			 m.addAttribute("message",new Message("Something went wrong !!!","danger"));
+			redirectAttributes.addFlashAttribute("message",new Message("Something went wrong !!!","danger"));
 		}
 		
 		return "redirect:/user/profile";

@@ -61,7 +61,7 @@ const viewModal = document.getElementById('viewModal');
 
 	viewModal.addEventListener('show.bs.modal', function (event) {
 		const button = event.relatedTarget;
-
+        console.log(button.getAttribute('data-img'))
 		// Populate modal content
 		document.getElementById('modalName').textContent = button.getAttribute('data-name');
 		document.getElementById('modalEmail').textContent = button.getAttribute('data-email');
@@ -139,7 +139,7 @@ const viewModal = document.getElementById('viewModal');
 	        document.getElementById('modalPhone').textContent = contact.phone;
 	        document.getElementById('modalWork').textContent = contact.work;
 	        document.getElementById('modalDesc').textContent = contact.desc;
-	        document.getElementById('modalImage').src = `/image/${contact.image}`;
+	        document.getElementById('modalImage').src = contact.image;
 
 	        new bootstrap.Modal(document.getElementById('viewModal')).show();
 	    }

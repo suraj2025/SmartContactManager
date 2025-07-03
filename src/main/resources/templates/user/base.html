@@ -59,7 +59,7 @@
 			id="sidebar">
 			<div class="profile text-center mt-4">
 				<div class="image mb-2">
-					<img th:src="@{'/image/' + ${user.imageUrl}}" alt="Profile Image"
+					<img th:src="${user.imageUrl}" alt="Profile Image"
 						class="rounded-circle img-thumbnail"
 						style="height: 70px; width: 70px; object-fit: cover;" />
 				</div>
